@@ -1,0 +1,27 @@
+---
+// src/pages/galeria.astro
+import Layout from '../layouts/Layout.astro';
+import cloudinary from '../util/cloudinary.ts';
+import type { CloudinaryResource } from '../types/cloudinary';
+
+const result = await cloudinary.search
+  .expression('folder:astro-uploads')
+  .sort_by('created_at', 'desc')
+  .max_results(20)
+  .execute();
+
+const images: CloudinaryResource[] = result.resources; // Asigna el tipo explícito
+const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+---
+<Layout>
+  <h1>Galería</h1>
+  <div class="gallery">
+    {images.map((img: CloudinaryResource) => ( // Tipo explícito aquí
+      <img
+        src={`https://res.cloudinary.com/${cloudName}/image/upload/w_500/${img.public_id}.${img.format}`}
+        alt={img.public_id}
+        width="100%"
+      />
+    ))}
+  </div>
+</Layout>

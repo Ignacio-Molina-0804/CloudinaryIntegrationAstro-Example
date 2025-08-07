@@ -1,22 +1,50 @@
+---
+// src/layouts/layout.astro
+---
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Galería Cloudinary</title>
+    <style>
+      /* Estilos globales */
+      html, body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        font-family: Arial, sans-serif;
+      }
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+      /* Estilos del dropzone (compartido en upload.astro) */
+      .dropzone {
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+        margin: 20px 0;
+      }
+      .dropzone:hover {
+        border-color: #000;
+      }
+      .preview {
+        margin-top: 20px;
+        max-width: 400px;
+      }
+
+      /* Estilos de la galería (compartido en galeria.astro) */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <slot /> <!-- Contenido de las páginas hijas -->
+  </body>
+</html>

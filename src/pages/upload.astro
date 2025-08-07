@@ -1,13 +1,76 @@
 ---
-
-import Layout from "../layouts/Layout.astro"
-
+// src/pages/upload.astro
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-    <h1>Subir Imagen a Cloudinary</h1>
-    <form action="/api/upload" method="POST" enctype="multipart/form-data">
-      <input type="file" name="file" required />
-      <button type="submit">Subir</button>
-    </form>
+  <h1>Subir imagen con preview</h1>
+  <form
+    id="uploadForm"
+    action="/api/upload"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <div
+      class="dropzone"
+      id="dropzone"
+      onclick="document.getElementById('fileInput').click();"
+    >
+      Arrastrá una imagen o hacé click aquí
+    </div>
+    <input
+      type="file"
+      name="file"
+      id="fileInput"
+      style="display: none"
+      accept="image/*"
+    />
+    <img id="preview" class="preview" src="" alt="" />
+    <br />
+    <button type="submit">Subir</button>
+  </form>
+
+  <script>
+    const dropzone = document.getElementById("dropzone");
+    const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+    const preview = document.getElementById("preview") as HTMLImageElement;
+
+    if (!dropzone || !fileInput || !preview) {
+      console.error("Elementos no encontrados");
+      return;
+    }
+
+    dropzone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropzone.style.borderColor = "#000";
+    });
+
+    dropzone.addEventListener("dragleave", () => {
+      dropzone.style.borderColor = "#ccc";
+    });
+
+    dropzone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      if (!e.dataTransfer) return;
+
+      const file = e.dataTransfer.files[0];
+      if (file) {
+        fileInput.files = e.dataTransfer.files;
+        showPreview(file);
+      }
+    });
+
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files?.[0];
+      if (file) showPreview(file);
+    });
+
+    function showPreview(file: File) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        preview.src = reader.result as string; 
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
 </Layout>
