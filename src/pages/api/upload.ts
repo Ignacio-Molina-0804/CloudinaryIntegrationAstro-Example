@@ -1,3 +1,4 @@
+//api/uploads.ts
 import type { APIRoute } from 'astro';
 import { v2 as cloudinary } from 'cloudinary';
 
