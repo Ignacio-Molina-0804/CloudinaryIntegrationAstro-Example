@@ -1,0 +1,10 @@
+---
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import Layout from '../layouts/Layout.astro';
+const cloudName = import.meta.env.CLOUDINARY_CLOUD_NAME;
+---
+
+<Layout>
+    <h1>Imágenes de Cloudinary</h1>
+    <CloudinaryImage cloudName={cloudName} publicId="tu-imagen.jpg" width={600} />
+</Layout>
