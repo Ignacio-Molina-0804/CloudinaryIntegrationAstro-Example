@@ -1,0 +1,7 @@
+---
+// src/components/CloudinaryImage.astro
+const { cloudName, publicId, width = 800 } = Astro.props;
+const imageUrl = `https://res.cloudinary.com/${cloudName}/image/upload/w_${width}/${publicId}`;
+---
+
+<img src={imageUrl} alt={publicId} width={width} loading="lazy" />
