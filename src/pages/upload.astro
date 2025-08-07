@@ -1,0 +1,13 @@
+---
+
+import Layout from "../layouts/Layout.astro"
+
+---
+
+<Layout>
+    <h1>Subir Imagen a Cloudinary</h1>
+    <form action="/api/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" required />
+      <button type="submit">Subir</button>
+    </form>
+</Layout>
